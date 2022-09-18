@@ -4,6 +4,7 @@
 
 This is an educational, kid-friendly game that aims to teach kids to identify and spell various fruits while honing their typing skills! 
 The idea was inspired by my background in education merged with my passion for drawing/digital illustration. 
+All
 
 
 ## USER STORIES
@@ -61,4 +62,7 @@ This game incorporates the use of text inputs (strings) and mouse click events t
 - resetGame - resets game to initial state
 - initGame - holds logic of game and invokes functions to run game
 ```
-# typing-fruits-game
+
+## Credits
+Wireframes were created using [Balsamiq Cloud](https://balsamiq.com/wireframes/cloud/).
+All other images in the game were drawn by me. 
