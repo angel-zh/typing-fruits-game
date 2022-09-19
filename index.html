@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+    <title>Typing Fruits Game</title>
+</head>
+
+<body>
+    <div id="game-container">
+        <section id="intro-section">
+            <h1>Tying Fruits</h1>
+            <button id="play-game">Play Game</button>
+            <button id="instructions">Instructions</button>
+            <div id="instructions-div" class="hide">
+                <h2>Instructions</h2>
+                <p></p>
+                <button id="instr-okay">Okay</button>
+            </div>
+            <div id="difficulty-level-div" class="hide">
+                <h2>Difficulty Level</h2>
+                <button id="normal">Normal</button>
+                <button id="hard">Hard</button>
+            </div>
+        </section>
+        <section id="text-section" class="hide">
+            <div id="timer">
+
+            </div>
+            <div id="prompt">
+
+            </div>
+            <input id="user-input" type="text" placeholder="Start typing away...">
+            <button id="bonus-start" class="hide">Start</button>
+        </section>
+        <section id="images-section" class="hide">
+            <div id="image-1"></div>
+            <div id="image-2"></div>
+            <div id="image-3"></div>
+            <div id="image-4"></div>
+            <div id="image-5"></div>
+            <div id="image-6"></div>
+            <div id="image-7"></div>
+            <div id="image-8"></div>
+            <div id="image-9"></div>
+            <div id="image-10"></div>
+            <div id="image-11"></div>
+            <div id="image-12"></div>
+        </section>
+        <section id="game-over-section" class="hide">
+            <p>Oh no! The hungry bunny stole all your fruits...</p>
+            <img src="game-images/BananaBunny.png" alt="Bunny eating a banana">
+            <h2>GAME OVER</h2>
+        </section>
+        <section id="win-section" class="hide">
+            <h2>Congratulations!</h2>
+            <p>The harvest was a success!</p>
+            <img src="game-images/PapayaPuppy.png" alt="Puppy collecting a papaya">
+        </section>
+        <button id="play-again" class="hide">Play Again</button>
+    </div>
+    <footer>Made and drawn by Angel Zhou</footer>
+</body>
+
+</html>
