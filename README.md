@@ -67,6 +67,13 @@ This game incorporates the use of text inputs (strings) and mouse click events t
 - initGame - holds logic of game and invokes functions to run game
 ```
 
+### Schedule for Project Week
+I will start off with a simple HTML boilerplate, making sure my css and JS files are linked. In addition, I will set a basic layout with element tags (i.e. headers, divs, footer, etc.) and assign some relevant Ids and classes. 
+
+Then, I'll move onto my JS pseudocoding, create my prompts needed for the game, define my variables, get my HTML elements (DOM), and get onto writing my functions for my game logic. 
+
+Lastly, I'll use CSS to style my game to make it visually appealing.
+
 ## Credits
 Wireframes were created using [Balsamiq Cloud](https://balsamiq.com/wireframes/cloud/).
 All other images in the game were digitally drawn by me. 
