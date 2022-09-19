@@ -4,7 +4,11 @@
 
 This is an educational, kid-friendly game that aims to teach kids to identify and spell various fruits while honing their typing skills! 
 The idea was inspired by my background in education merged with my passion for drawing/digital illustration. 
-All
+
+### Technology
+- HTML5
+- CSS
+- JavaScript
 
 
 ## USER STORIES
@@ -17,7 +21,7 @@ As a user, I want the ability to...
 - start the game when I'm ready to play
 - see the timer/countdown
 - type the prompt shown on the screen with my keyboard
-- advance to the next level
+- advance to the next level after successful match
 - see the "game over" screen
 - see the fruit(image) that I've collected after each level
 - advance to Part II (Bonus Level) of the game once I clear all levels in Part I
@@ -51,7 +55,7 @@ As a user I want the ability to...
 
 ## Entity Relationship
 
-This game incorporates the use of text inputs (strings) and mouse click events to navigate through the levels. There are two pre-determined arrays of prompts, which also serve as a check for winning conditions, for two levels of difficulty respectively. An object will be used to store all word-imageURL key-value pairs.
+This game incorporates the use of text inputs (strings) and mouse click events to navigate through the levels. There are two pre-determined arrays of prompts, which also serve as a check for winning conditions, for two levels of difficulty respectively. An object will be used to store all word-image key-value pairs.
 
 ### Functions
 ```
@@ -65,4 +69,4 @@ This game incorporates the use of text inputs (strings) and mouse click events t
 
 ## Credits
 Wireframes were created using [Balsamiq Cloud](https://balsamiq.com/wireframes/cloud/).
-All other images in the game were drawn by me. 
+All other images in the game were digitally drawn by me. 
