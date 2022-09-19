@@ -1,0 +1,13 @@
+#game-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 1000px;
+    height: 800px;
+    display: flex;
+    margin: 200px auto;
+}
+
+
+.hide {
+    display: none;
+}
