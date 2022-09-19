@@ -76,4 +76,4 @@ Lastly, I'll use CSS to style my game to make it visually appealing.
 
 ## Credits
 Wireframes were created using [Balsamiq Cloud](https://balsamiq.com/wireframes/cloud/).
-All other images in the game were digitally drawn by me. 
+All other images in the game were digitally drawn by me.
