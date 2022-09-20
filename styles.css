@@ -1,13 +1,18 @@
 #game-container {
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 1000px;
     height: 800px;
-    display: flex;
+    display: absolute;
     margin: 200px auto;
 }
 
-
-.hide {
-    display: none;
+h1 {
+    font-size: 80px;
+    display: relative;
+    text-align: center;
 }
+
+/* .hide {
+    display: none;
+} */

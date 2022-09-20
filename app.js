@@ -53,22 +53,36 @@ const hardBtn = document.getElementById('hard')
 const bonusStartBtn = document.getElementById('bonus-start')
 const playAgainBtn = document.getElementById('play-again')
 
+//sections and divs
+const diffLvlPage = document.getElementById('difficulty-lvl-div')
+const instructionsPage = document.getElementById('instructions-div')
+const gameOverPage = document.getElementById('game-over-page')
+const winPage = document.getElementById('win-page')
+
 // others
 const prompt = document.getElementById('prompt')
 const timer = document.getElementById('timer')
 const userInput = document.getElementById('user-input')
 
+
 let difficulty = null
 let randomArray = []
 let currentIndex = 0
-let time = 5 
+let time = 6 
+let score = 0
+let isGameOver = false
 
-
+// sets the timer conditions and displays on the UI
+// to be passed into setInterval() function
 const runTimer = () => {
     if (time === 0) {
-        
+        isGameOver = true
+    } else {
+        time--
     }
+    timer.innerHTML = `<span id="time">${time}</span>s left`
 }
+
 
 // in order to randomize the prompts in an array, use what is called 'Fisher-Yates Shuffle' algorithm
 // selects element of random index to switch with current element
@@ -86,7 +100,6 @@ const randomizePrompts = array => {
     return randomArray
 }
 
-// console.log(randomizePrompts(hardPrompts))
 
 // function to display prompts listed in randomArray
 const displayPrompts = () => {
@@ -94,12 +107,37 @@ const displayPrompts = () => {
 }
 
 // compare user input to prompt
-// if there is a match, move onto next index in randomArray
+// if there is a match, move onto next index in randomArray and increase score
 const compareInput = () => {
     displayPrompts()
     if (userInput === prompt.innerText) {
         currentIndex++
+        score += 10
+        scoreText.innerText = score
     } else {
-        return false
+        isGameOver = true
     }
 }
+
+const displayResult = () => {
+    if (isGameOver) {
+
+    }
+}
+
+const startGame = () => {
+    timer.innerHTML = `<span id="time">${time}</span>s left`
+}
+
+
+playGameBtn.addEventListener('click', () => {
+    diffLvlPage.classList.remove('hide')
+})
+
+instructionsBtn.addEventListener('click', () => {
+    instructionsPage.classList.remove('hide')
+})
+
+okayBtn.addEventListener('click', () => {
+    instructionsPage.classList.add('hide')
+})
