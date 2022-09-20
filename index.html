@@ -11,32 +11,35 @@
 </head>
 
 <body>
-    <div id="game-container">
+    <section id="game-container">
         <section id="intro-section">
-            <h1>Typing Fruits</h1>
-            <button id="play-game">Play Game</button>
-            <button id="instructions">Instructions</button>
+            <div id="landing-page">
+                <h1>Typing Fruits</h1>
+                <button id="play-game-btn">Play Game</button>
+                <button id="instructions-btn">Instructions</button>
+            </div>
             <div id="instructions-div" class="hide">
                 <h2>Instructions</h2>
                 <p></p>
-                <button id="instr-okay">Okay</button>
+                <button id="okay-btn">Okay</button>
             </div>
             <div id="difficulty-lvl-div" class="hide">
+                <button id="x-btn">X</button>
                 <h2>Difficulty Level</h2>
-                <button id="normal">Normal</button>
-                <button id="hard">Hard</button>
+                <button id="normal-btn">Normal</button>
+                <button id="hard-btn">Hard</button>
             </div>
         </section>
         <section id="text-section" class="hide">
             <div id="timer">
-
+                <p><span id="timerText"></span>seconds left</p>
             </div>
             <div id="prompt">
 
             </div>
-            <input id="user-input" type="text" placeholder="Start typing away...">
-            <p>Current Score: <span class="scoreText">0</span></p>
-            <button id="bonus-start" class="hide">Start</button>
+            <input id="user-input" type="text" placeholder="Count down begins when you type...">
+            <p>Score: <span class="scoreText">0</span></p>
+            <button id="bonus-start-btn" class="hide">Start</button>
         </section>
         <section id="images-section" class="hide">
             <div id="image-1"></div>
@@ -52,20 +55,20 @@
             <div id="image-11"></div>
             <div id="image-12"></div>
         </section>
-        <section id="game-over-page" class="hide">
-            <p>Oh no! The hungry bunny stole all your fruits...</p>
-            <img src="game-images/BananaBunny.png" alt="Bunny eating a banana">
-            <h2>GAME OVER</h2>
-            <p>Your final score is<span class="scoreText"></span>points!</p>
-        </section>
-        <section id="win-page" class="hide">
-            <h2>Congratulations!</h2>
-            <p>The harvest was a success!</p>
-            <img src="game-images/PapayaPuppy.png" alt="Puppy collecting a papaya">
-            <p>Your final score is<span class="scoreText"></span>points!</p>
-        </section>
-        <button id="play-again" class="hide">Play Again</button>
-    </div>
+    </section>
+    <section id="game-over-page" class="hide">
+        <p>Oh no! The hungry bunny stole all your fruits...</p>
+        <img src="game-images/BananaBunny.png" alt="Bunny eating a banana">
+        <h2>GAME OVER</h2>
+        <p>Your final score is<span class="scoreText"></span>points!</p>
+    </section>
+    <section id="win-page" class="hide">
+        <h2>Congratulations!</h2>
+        <p>The harvest was a success!</p>
+        <img src="game-images/PapayaPuppy.png" alt="Puppy collecting a papaya">
+        <p>Your final score is<span class="scoreText"></span>points!</p>
+    </section>
+    <button id="play-again-btn" class="hide">Play Again</button>
     <footer>Made and drawn by Angel Zhou</footer>
 </body>
 

@@ -3,16 +3,18 @@
     border-radius: 10px;
     width: 1000px;
     height: 800px;
-    display: absolute;
     margin: 200px auto;
+    
+}
+#intro-section {
+    text-align: center;
 }
 
 h1 {
     font-size: 80px;
-    display: relative;
-    text-align: center;
+    
 }
 
-/* .hide {
+.hide {
     display: none;
-} */
+}
