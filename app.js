@@ -18,7 +18,7 @@ const textSection = document.getElementById('text-section')
 const imagesContainer = document.getElementById('images-container')
 const gameOverPage = document.getElementById('game-over-page')
 const winPage = document.getElementById('win-page')
-const timer = document.getElementById('timer')
+// const timerDiv = document.getElementById('timer-div')
 
 // others
 const timerText = document.getElementById('timer-text')
@@ -43,102 +43,106 @@ const prompts = [
 ]
 
 let difficulty = null
-let isGameOver = false
+let isGameOver = null
 let isTimesUp = false
 let promptsToShow = null
 let time = 6
 let currentIndex = 0
 let score = 0
-
+let timerId
 
 // const normalPrompts = Object.keys(fruits)
 // const hardPrompts = normalPrompts.map(prompt => {
 //     return prompts[prompt].hard
 // })
 
+
+
+const displayResult = () => {
+    if (isGameOver && isTimesUp) {
+        scoreText.innerText = score
+        gameContainer.classList.add('hide')
+        gameOverPage.classList.remove('hide')
+    }
+}
+
 // sets the timer conditions and displays on the UI
 const runTimer = () => {
     if (time === 0) {
         isTimesUp = true
-        const message = document.createElement('p')
-        message.innerHTML = "Time's up!"
-        message.style.color = "tomato"
-        timer.appendChild(message)
+        isGameOver = true
+        
     } else {
         time--
     }
     timerText.innerText = time
+    displayResult()
 }
 
 // in order to randomize the prompts in an array, use what is called 'Fisher-Yates Shuffle' algorithm
 // selects element of random index to switch with current element
-const shufflePrompts = () => {
-    for (let i = prompts.length - 1; i > 0; i--) {
+const shufflePrompts = array => {
+    for (let i = array.length - 1; i > 0; i--) {
         // generates random index from 0 to i
         let j = Math.floor(Math.random() * (i + 1))
         // swaps current element with random element
-        const temp = prompts[i]
-        prompts[i] = prompts[j]
-        prompts[j] = temp
+        const temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
     }
     return prompts
 }
 
-// create the list of prompts based on selected difficulty level
-const createPrompts = () => {
+const displayPrompts = () => {
     if (difficulty === "normal") {
-        promptsToShow = prompts.map(prompt => {
-            return prompt.normal
-        })
-    } else if (difficulty === "hard") {
-        promptsToShow = prompts.map(prompt => {
-            return prompt.hard
-        })
+        promptText.innerText = prompts[currentIndex].normal
+    } else if (difficulty === "hard")
+        promptText.innerText = prompts[currentIndex].hard
+}
+
+const createImage = () => {
+    const div = document.createElement('div')
+    const img = document.createElement('img')
+    div.id = prompts[currentIndex-1].normal
+    img.src = prompts[currentIndex-1].url
+    div.appendChild(img)
+    imagesContainer.appendChild(img)
+}
+
+// display prompts and compare user text input to prompt
+// if there is a match, move onto next index and increase score
+const compareTextInput = () => {
+    if (userInput.value === promptText.innerText) {
+        createImage()
+        currentIndex++
+        score += 10
+        scoreText.innerText = score
+    } else {
+        isGameOver = true
     }
 }
 
-    // display prompts and compare user text input to prompt
-    // if there is a match, move onto next index and increase score
-    const compareTextInput = () => {
-        promptText.innerText = promptsToShow[currentIndex]
-        if (userInput.value === promptText.innerText) {
-            currentIndex++
-            score += 10
-            scoreText.innerText = score
-        } else {
-            isGameOver = true
-        }
-    }
-
-    const createImage = () => {
-        const div = document.createElement('div')
-        const img = document.createElement('img')
-        div.id = randomArray[currentIndex]
-        img.src = prompts[randomArray[currentIndex]].url
-    }
 
 
 
-    const displayResult = () => {
-        if (isGameOver && isTimesUp) {
-            scoreText.innerText = score
-            gameContainer.classList.add('hide')
-            gameOverPage.classList.remove('hide')
-        }
-    }
 
 
-    // function to initialize the game by hiding intro pages and showing actual game page
-    const initGame = () => {
-        difficultyPage.classList.add('hide')
-        landingPage.classList.add('hide')
-        textSection.classList.remove('hide')
-        timerText.innerText = time
 
-        shufflePrompts(prompts)
-        createPrompts()
-        compareTextInput()
-    }
+
+// function to initialize the game by hiding intro pages and showing actual game page
+const initGame = () => {
+    difficultyPage.classList.add('hide')
+    landingPage.classList.add('hide')
+    textSection.classList.remove('hide')
+    timerText.innerText = time
+    shufflePrompts(prompts)
+    // createPrompts()
+    displayPrompts()
+    userInput.addEventListener('input', compareTextInput)
+    timerId = setInterval(runTimer, 1000)
+
+    
+}
 
 
 
@@ -161,12 +165,10 @@ xBtn.addEventListener('click', () => {
 
 normalBtn.addEventListener('click', () => {
     difficulty = "normal"
-    console.log(difficulty)
     initGame()
 })
 
 hardBtn.addEventListener('click', () => {
     difficulty = "hard"
-    console.log(difficulty)
     initGame()
 })
