@@ -9,135 +9,142 @@ const hardBtn = document.getElementById('hard-btn')
 const bonusStartBtn = document.getElementById('bonus-start-btn')
 const playAgainBtn = document.getElementById('play-again-btn')
 
-//sections and divs
+// sections and divs
 const gameContainer = document.getElementById('game-container')
 const landingPage = document.getElementById('landing-page')
-const diffLvlPage = document.getElementById('difficulty-lvl-div')
+const difficultyPage = document.getElementById('difficulty-div')
 const instructionsPage = document.getElementById('instructions-div')
+const textSection = document.getElementById('text-section')
+const imagesContainer = document.getElementById('images-container')
 const gameOverPage = document.getElementById('game-over-page')
 const winPage = document.getElementById('win-page')
+const timer = document.getElementById('timer')
 
 // others
-const textSection = document.getElementById('text-section')
-const prompt = document.getElementById('prompt')
-const timer = document.getElementById('timer')
+const timerText = document.getElementById('timer-text')
+const promptText = document.getElementById('prompt-text')
 const userInput = document.getElementById('user-input')
 const scoreText = document.querySelectorAll('.scoreText')
 
-const normalPrompts = [
-    "apple",
-    "bananas",
-    "cantaloupe",
-    "cherries",
-    "lemons",
-    "mango",
-    "orange",
-    "papaya",
-    "peach",
-    "pineapple",
-    "strawberries",
-    "watermelon"
+// array of objects storing each fruit's normal prompt, hard prompt, and image url
+const prompts = [
+    { normal: "apple", hard: "My sister has a red apple.", url: "game-images/apple.png" },
+    { normal: "bananas", hard: "We got bananas from the store.", url: "game-images/banana.png" },
+    { normal: "cantaloupe", hard: "I ate a slice of cantaloupe.", url: "game-images/cantaloupe.png" },
+    { normal: "cherries", hard: "These cherries are delicious.", url: "game-images/cherries.png" },
+    { normal: "lemons", hard: "These lemons are too sour.", url: "game-images/lemons.png" },
+    { normal: "mango", hard: "I would like a mango please.", url: "game-images/mango.png" },
+    { normal: "orange", hard: "An orange makes a great snack.", url: "game-images/orange.png" },
+    { normal: "papaya", hard: "My puppy loves yummy papaya.", url: "game-images/papaya.png" },
+    { normal: "peach", hard: "We grow peach trees in a yard.", url: "game-images/peach.png" },
+    { normal: "pineapple", hard: "Chop the pineapple in half.", url: "game-images/pineapple.png" },
+    { normal: "strawberries", hard: "My brother picked strawberries.", url: "game-images/strawberries.png" },
+    { normal: "watermelon", hard: "Please hand me a slice of watermelon.", url: "game-images/watermelon.png" },
 ]
 
-const hardPrompts = [
-    "My sister has a red apple.",
-    "We got bananas from the store.",
-    "I ate a slice of cantaloupe.",
-    "These cherries are delicious.",
-    "These lemons are too sour.",
-    "I would like a mango please.",
-    "An orange makes a great snack.",
-    "My puppy loves yummy papaya.",
-    "We grow peach trees in a yard.",
-    "Chop the pineapple in half.",
-    "My brother picked strawberries.",
-    "Please hand me a slice of watermelon."
-]
-
-const fruitImages = {
-    apple: "game-images/apple.png",
-    bananas: "game-images/bananas.png",
-    cantaloupe: "game-images/cantaloupe.png",
-    cherries: "game-images/cherries.png",
-    lemons: "game-images/lemons.png",
-    mango: "game-images/mango.png",
-    orange: "game-images/orange.png",
-    papaya: "game-images/papaya.png",
-    peach: "game-images/peach.png",
-    pineapple: "game-images/pineapple.png",
-    strawberries: "game-images/strawberries.png",
-    watermelon: "game-images/watermelon.png"
-}
-
-
-let time = [6, 20] // time[0] is for part I, time[1] is for bonus level
-let randomArray = []
-let currentIndex = 0
-let score = 0
+let difficulty = null
 let isGameOver = false
 let isTimesUp = false
+let promptsToShow = null
+let time = 6
+let currentIndex = 0
+let score = 0
+
+
+// const normalPrompts = Object.keys(fruits)
+// const hardPrompts = normalPrompts.map(prompt => {
+//     return prompts[prompt].hard
+// })
 
 // sets the timer conditions and displays on the UI
-const runTimer = index => {
-    if (time[index] === 0) {
+const runTimer = () => {
+    if (time === 0) {
         isTimesUp = true
         const message = document.createElement('p')
         message.innerHTML = "Time's up!"
         message.style.color = "tomato"
         timer.appendChild(message)
-        
     } else {
-        time[index]--
+        time--
     }
-    timerText.innerHTML = time
+    timerText.innerText = time
 }
 
 // in order to randomize the prompts in an array, use what is called 'Fisher-Yates Shuffle' algorithm
 // selects element of random index to switch with current element
-const randomizePrompts = array => { 
-    // clone original array to be used as prompt list
-    randomArray = array.slice() 
-    for (let i = randomArray.length - 1; i > 0; i--) { 
+const shufflePrompts = () => {
+    for (let i = prompts.length - 1; i > 0; i--) {
         // generates random index from 0 to i
-        let j = Math.floor(Math.random() * (i + 1)) 
+        let j = Math.floor(Math.random() * (i + 1))
         // swaps current element with random element
-        const temp = randomArray[i] 
-        randomArray[i] = randomArray[j] 
-        randomArray[j] = temp 
+        const temp = prompts[i]
+        prompts[i] = prompts[j]
+        prompts[j] = temp
     }
-    return randomArray
+    return prompts
 }
 
-
-// display prompts and compare user input text to prompt
-// if there is a match, move onto next index in randomArray and increase score
-const compareInput = () => {
-    prompt.innerText = randomArray[currentIndex]
-    if (userInput.value === prompt.innerText) {
-        currentIndex++
-        score += 10
-        scoreText.innerText = score
-    } else {
-        isGameOver = true
-    }
-}
-
-const displayResult = () => {
-    if (isGameOver && isTimesUp) {
-        scoreText.innerText = score
-        gameContainer.classList.add('hide')
-        gameOverPage.classList.remove('hide')
+// create the list of prompts based on selected difficulty level
+const createPrompts = () => {
+    if (difficulty === "normal") {
+        promptsToShow = prompts.map(prompt => {
+            return prompt.normal
+        })
+    } else if (difficulty === "hard") {
+        promptsToShow = prompts.map(prompt => {
+            return prompt.hard
+        })
     }
 }
 
-const startGame = () => {
-    timerText.innerHTML = time
-}
+    // display prompts and compare user text input to prompt
+    // if there is a match, move onto next index and increase score
+    const compareTextInput = () => {
+        promptText.innerText = promptsToShow[currentIndex]
+        if (userInput.value === promptText.innerText) {
+            currentIndex++
+            score += 10
+            scoreText.innerText = score
+        } else {
+            isGameOver = true
+        }
+    }
+
+    const createImage = () => {
+        const div = document.createElement('div')
+        const img = document.createElement('img')
+        div.id = randomArray[currentIndex]
+        img.src = prompts[randomArray[currentIndex]].url
+    }
+
+
+
+    const displayResult = () => {
+        if (isGameOver && isTimesUp) {
+            scoreText.innerText = score
+            gameContainer.classList.add('hide')
+            gameOverPage.classList.remove('hide')
+        }
+    }
+
+
+    // function to initialize the game by hiding intro pages and showing actual game page
+    const initGame = () => {
+        difficultyPage.classList.add('hide')
+        landingPage.classList.add('hide')
+        textSection.classList.remove('hide')
+        timerText.innerText = time
+
+        shufflePrompts(prompts)
+        createPrompts()
+        compareTextInput()
+    }
+
 
 
 // event listeners for all buttons
 playGameBtn.addEventListener('click', () => {
-    diffLvlPage.classList.remove('hide')
+    difficultyPage.classList.remove('hide')
 })
 
 instructionsBtn.addEventListener('click', () => {
@@ -148,20 +155,18 @@ okayBtn.addEventListener('click', () => {
     instructionsPage.classList.add('hide')
 })
 
+xBtn.addEventListener('click', () => {
+    difficultyPage.classList.add('hide')
+})
+
 normalBtn.addEventListener('click', () => {
-    diffLvlPage.classList.add('hide')
-    landingPage.classList.add('hide')
-    randomizePrompts(normalPrompts)
-    textSection.classList.remove('hide')
+    difficulty = "normal"
+    console.log(difficulty)
+    initGame()
 })
 
 hardBtn.addEventListener('click', () => {
-    diffLvlPage.classList.add('hide')
-    landingPage.classList.add('hide')
-    randomizePrompts(hardPrompts)
-    textSection.classList.remove('hide')
-})
-
-xBtn.addEventListener('click', () => {
-    diffLvlPage.classList.add('hide')
+    difficulty = "hard"
+    console.log(difficulty)
+    initGame()
 })

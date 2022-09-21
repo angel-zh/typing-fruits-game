@@ -20,10 +20,12 @@
             </div>
             <div id="instructions-div" class="hide">
                 <h2>Instructions</h2>
-                <p></p>
+                <p>A word (normal difficulty) or a sentence (hard difficulty) will show up on the screen.</p>
+                <p>Type what you see (including capitals and periods) as quickly as you can before the time runs out.</p>
+                <p>For each correct match, you will be awarded with a fruit to populate your farm!</p>
                 <button id="okay-btn">Okay</button>
             </div>
-            <div id="difficulty-lvl-div" class="hide">
+            <div id="difficulty-div" class="hide">
                 <button id="x-btn">X</button>
                 <h2>Difficulty Level</h2>
                 <button id="normal-btn">Normal</button>
@@ -32,16 +34,23 @@
         </section>
         <section id="text-section" class="hide">
             <div id="timer">
-                <p><span id="timerText"></span>seconds left</p>
+                <p><span id="timer-text"> </span> seconds left</p>
             </div>
-            <div id="prompt">
+            <div id="prompt-text">
 
             </div>
             <input id="user-input" type="text" placeholder="Count down begins when you type...">
             <p>Score: <span class="scoreText">0</span></p>
+            
+        </section>
+        <section id="bonusPage" class="hide">
+            <h2>BONUS LEVEL</h2>
+            <h3>It's harvest time!</h3>
+            <img src="game-images/PapayaPuppy.png">
+            <p>Collect your fruits by clicking on the image that matches the word before time runs out!</p>
             <button id="bonus-start-btn" class="hide">Start</button>
         </section>
-        <section id="images-section" class="hide">
+        <section id="images-container" class="hide">
             <div id="image-1"></div>
             <div id="image-2"></div>
             <div id="image-3"></div>
