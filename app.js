@@ -74,12 +74,12 @@ const displayPrompts = () => {
             promptText.innerText = prompts[currentIndex].normal
         } else if (difficulty === "hard")
             promptText.innerText = prompts[currentIndex].hard
-        // once we've gone through the length of the array, the bonus level appears
-    } else if (currentIndex >= 12) {
+    // once we reach the length of the array and score = 120, the bonus level appears
+    } else if (currentIndex >= 12 && score === 120) {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
         clearInterval(timerId)
-    }
+    } 
 }
 
 // creates an image corresponding to the current prompt
