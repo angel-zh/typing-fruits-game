@@ -5,77 +5,79 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Play&family=Slackey&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
+
     <title>Typing Fruits Game</title>
 </head>
 
 <body>
-    <section id="game-container">
-        <section id="intro-section">
-            <div id="landing-page">
-                <h1>Typing Fruits</h1>
-                <button id="play-game-btn">Play Game</button>
-                <button id="instructions-btn">Instructions</button>
-            </div>
-            <div id="instructions-div" class="hide">
-                <h2>Instructions</h2>
-                <p>A word (normal difficulty) or a sentence (hard difficulty) will show up on the screen.</p>
-                <p>Type what you see (including capitals and periods) as quickly as you can before the time runs out.</p>
-                <p>For each correct match, you will be awarded with a fruit to populate your farm!</p>
-                <button id="okay-btn">Okay</button>
-            </div>
-            <div id="difficulty-div" class="hide">
-                <button id="x-btn">X</button>
-                <h2>Difficulty Level</h2>
-                <button id="normal-btn">Normal</button>
-                <button id="hard-btn">Hard</button>
-            </div>
-        </section>
-        <section id="text-section" class="hide">
-            <div id="timer-div">
-                <p><span id="timer-text"> </span> seconds left</p>
-            </div>
-            <div id="prompt-text">
+    <div id="full-game-div">
+        <section id="game-container">
+            <section id="intro-section">
+                <div id="landing-page">
+                    <h1>Typing Fruits</h1>
+                    <button id="play-game-btn">Play Game</button>
+                    <button id="instructions-btn">Instructions</button>
+                </div>
+                <div id="instructions-div" class="hide">
+                    <h2>Instructions</h2>
+                    <p>A word (normal difficulty) or a sentence (hard difficulty) will show up on the screen.</p>
+                    <p>Type what you see (including capitals and periods) as quickly as you can before the time runs
+                        out.
+                    </p>
+                    <p>For each correct match, you will be awarded with a fruit to populate your farm!</p>
+                    <button id="okay-btn">Okay</button>
+                </div>
+                <div id="difficulty-div" class="hide">
+                    <button id="x-btn">X</button>
+                    <h2>Difficulty Level</h2>
+                    <button id="normal-btn">Normal</button>
+                    <button id="hard-btn">Hard</button>
+                </div>
+            </section>
+            <section id="text-section" class="hide">
+                <div id="timer-div">
+                    <p><span id="timer-text"> </span> seconds left</p>
+                </div>
+                <div id="prompt-text">
 
-            </div>
-            <input id="user-input" type="text" placeholder="Count down begins when you type...">
-            <p>Score: <span id="scoreText"> </span></p>
+                </div>
+                <input id="user-input" type="text" placeholder="Count down begins when you type...">
+                <p>Score: <span class="scoreText"> </span></p>
+            </section>
+            <section id="bonus-page" class="hide">
+                <h1>BONUS LEVEL</h1>
+                <h2>It's harvest time!</h2>
+                <img src="game-images/PapayaPuppy.png">
+                <p>Collect your fruits by clicking on the image that matches the word before time runs out!</p>
+                <button id="bonus-start-btn">Start</button>
+            </section>
+            
+            <section id="images-container" class="hide">
+                <div id="images-grid">
+                </div>
+            </section>
         </section>
-        <section id="bonus-page" class="hide">
-            <h2>BONUS LEVEL</h2>
-            <h3>It's harvest time!</h3>
-            <img src="game-images/PapayaPuppy.png">
-            <p>Collect your fruits by clicking on the image that matches the word before time runs out!</p>
-            <button id="bonus-start-btn">Start</button>
+        <section id="game-over-page" class="hide">
+            <h2>GAME OVER</h2>
+            <img src="game-images/BananaBunny.png" alt="Bunny eating a banana">
+            <p>Oh no! The hungry bunny stole all your fruits...</p>
+            <p>Your final score is <span class="scoreText"> </span> points.</p>
+
         </section>
-        <section id="images-container" class="hide">
-            <!-- <div id="0" class="cell"></div>
-            <div id="1" class="cell"></div>
-            <div id="2" class="cell"></div>
-            <div id="3" class="cell"></div>
-            <div id="4" class="cell"></div>
-            <div id="5" class="cell"></div>
-            <div id="6" class="cell"></div>
-            <div id="7" class="cell"></div>
-            <div id="8" class="cell"></div>
-            <div id="9" class="cell"></div>
-            <div id="10" class="cell"></div>
-            <div id="11" class="cell"></div> -->
+        <section id="win-page" class="hide">
+            <h2>Congratulations!</h2>
+            <img src="game-images/Basket.png" alt="Puppy collecting a papaya">
+            <p>The harvest was a success!</p>
+            <p>Your final score is <span class="scoreText"> </span> points.</p>
         </section>
-    </section>
-    <section id="game-over-page" class="hide">
-        <img src="game-images/BananaBunny.png" alt="Bunny eating a banana">
-        <h2>GAME OVER</h2>
-        <p>Oh no! The hungry bunny stole all your fruits...</p>
-    </section>
-    <section id="win-page" class="hide">
-        <h2>Congratulations!</h2>
-        <img src="game-images/Basket.png" alt="Puppy collecting a papaya">
-        <p>The harvest was a success!</p>
-        
-    </section>
-    <button id="play-again-btn" class="hide">Play Again</button>
+        <button id="play-again-btn" class="hide">Play Again</button>
+
+    </div>
     <footer>Made and drawn by Angel Zhou</footer>
 </body>
 
