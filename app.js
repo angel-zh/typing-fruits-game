@@ -156,18 +156,19 @@ const compareClickedImg = event => {
     }
 }
 
-
 // initialize the game by invoking game functions
 const initGame = () => {
     difficultyPage.classList.add('hide')
     landingPage.classList.add('hide')
     textSection.classList.remove('hide')
     imagesContainer.classList.remove('hide')
-    scoreText[0].innerText = score
+    // updates all scoreText spans in DOM
+    scoreText.forEach(text => { text.innerText = score })
     shufflePrompts(prompts)
     displayPrompts()
+    // compare text input at every input event
     userInput.addEventListener('input', compareTextInput)
-    // invoke runTimer before setting interval on it to avoid delay
+    // invoke runTimer first to avoid 1 sec delay on setInterval
     runTimer() 
     timerId = setInterval(runTimer, 1000)
     checkGameOverId = setInterval(checkGameOver, 100)
@@ -175,13 +176,13 @@ const initGame = () => {
 
 // initialize the bonus level
 const initBonusLvl = () => {
-    userInput.remove()
+    userInput.classList.add('hide')
     textSection.classList.remove('hide')
     currentIndex = 0
     timerText.innerText = time
     // there is only one difficulty for the bonus level
     difficulty = "normal"
-    // get a new random set of prompts
+    // get a new random set of prompts - normal only
     shufflePrompts(prompts)
     displayPrompts()
     imagesGrid.addEventListener('click', compareClickedImg)
@@ -192,10 +193,12 @@ const initBonusLvl = () => {
 const resetGame = () => {
     isGameOver = false
     difficulty = null
-    score = 0
-    scoreText.forEach(text => { text.innerText = score })
     currentIndex = 0
     time = 6
+    score = 0
+    scoreText.forEach(text => { text.innerText = score })
+    imagesGrid.innerHTML = ''
+    imagesGrid.removeEventListener('click', compareClickedImg)
     winPage.classList.add('hide')
     gameOverPage.classList.add('hide')
     playAgainBtn.classList.add('hide')
@@ -203,6 +206,7 @@ const resetGame = () => {
     bonusPage.classList.add('hide')
     imagesContainer.classList.add('hide')
     gameContainer.classList.remove('hide')
+    userInput.classList.remove('hide')
     landingPage.classList.remove('hide')
 }
 
