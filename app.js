@@ -16,17 +16,16 @@ const difficultyPage = document.getElementById('difficulty-div')
 const instructionsPage = document.getElementById('instructions-div')
 const textSection = document.getElementById('text-section')
 const imagesContainer = document.getElementById('images-container')
+const imagesGrid = document.getElementById('images-grid')
 const bonusPage = document.getElementById('bonus-page')
 const gameOverPage = document.getElementById('game-over-page')
 const winPage = document.getElementById('win-page')
-// const cells = document.querySelectorAll('.cells')
-// const timerDiv = document.getElementById('timer-div')
 
 // others
 const timerText = document.getElementById('timer-text')
 const promptText = document.getElementById('prompt-text')
 const userInput = document.getElementById('user-input')
-const scoreText = document.getElementById('scoreText')
+const scoreText = document.querySelectorAll('.scoreText')
 
 // array of objects storing each fruit's normal prompt, hard prompt, and image url
 const prompts = [
@@ -46,13 +45,15 @@ const prompts = [
 
 let difficulty = null
 let isGameOver = false
-let time
 let currentIndex = 0
 let score = 0
-let timerId
+let time
+// for setInterval() & clearInterval()
+let timerId 
+let checkGameOverId 
 
 
-// in order to randomize the prompts in an array, use what is called 'Fisher-Yates Shuffle' algorithm
+// in order to randomize the prompts in an array, can use 'Fisher-Yates Shuffle' algorithm
 // selects element of random index to switch with current element
 const shufflePrompts = array => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -66,7 +67,6 @@ const shufflePrompts = array => {
     return prompts
 }
 
-
 // displays prompts based on difficulty level 
 const displayPrompts = () => {
     if (currentIndex < prompts.length) {
@@ -74,6 +74,7 @@ const displayPrompts = () => {
             promptText.innerText = prompts[currentIndex].normal
         } else if (difficulty === "hard")
             promptText.innerText = prompts[currentIndex].hard
+        // once we've gone through the length of the array, the bonus level appears
     } else if (currentIndex >= 12) {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
@@ -82,22 +83,30 @@ const displayPrompts = () => {
 }
 
 // creates an image corresponding to the current prompt
+// attaches image to a 3x4 grid
 const createImage = () => {
     const img = document.createElement('img')
     img.src = prompts[currentIndex].url
     img.id = prompts[currentIndex].normal
-    imagesContainer.appendChild(img)
+    imagesGrid.appendChild(img)
 }
 
 // displays game over or winning screen
 const checkGameOver = () => {
     if (isGameOver) {
+        // clearInterval for checkGameOver once game is over
+        clearInterval(checkGameOverId)
+        clearInterval(timerId)
         gameContainer.classList.add('hide')
         gameOverPage.classList.remove('hide')
         playAgainBtn.classList.remove('hide')
-    } else if (!isGameOver && score === 240) {
+    // win is determined when max score is reached    
+    } else if (score === 240) {
+        clearInterval(checkGameOverId)
+        clearInterval(timerId)
         gameContainer.classList.add('hide')
         winPage.classList.remove('hide')
+        playAgainBtn.classList.remove('hide')
     }
 }
 
@@ -109,20 +118,20 @@ const runTimer = () => {
         time--
     }
     timerText.innerText = time
-
 }
 
-
 // compare user text input with prompt
-//if there is a match, load picture on screen, move onto next index and increase score
+//if match, attach img, then move to next prompt
 const compareTextInput = () => {
     if (userInput.value === promptText.innerText) {
         createImage()
         score += 10
-        scoreText.innerText = score
+        scoreText.forEach(text => { text.innerText = score })
         currentIndex++
         displayPrompts()
+        // reset input value each prompt
         userInput.value = ''
+        // set time for each prompt based on difficulty
         if (difficulty === "normal") {
             time = 6
         } else {
@@ -131,12 +140,15 @@ const compareTextInput = () => {
     }
 }
 
+// compare the clicked image's id with current prompt being shown
+// if match, proceed to next prompt
+// if not, game over
 const compareClickedImg = event => {
     const clickedImg = event.target.getAttribute('id')
     if (clickedImg === prompts[currentIndex].normal) {
         document.getElementById(clickedImg).style.visibility = 'hidden'
         score += 10
-        scoreText.innerText = score
+        scoreText.forEach(text => { text.innerText = score })
         currentIndex++
         displayPrompts()
     } else {
@@ -145,37 +157,55 @@ const compareClickedImg = event => {
 }
 
 
-
 // initialize the game by invoking game functions
 const initGame = () => {
     difficultyPage.classList.add('hide')
     landingPage.classList.add('hide')
     textSection.classList.remove('hide')
     imagesContainer.classList.remove('hide')
-    timerText.innerText = time
-    scoreText.innerText = score
+    scoreText[0].innerText = score
     shufflePrompts(prompts)
     displayPrompts()
     userInput.addEventListener('input', compareTextInput)
+    // invoke runTimer before setting interval on it to avoid delay
+    runTimer() 
     timerId = setInterval(runTimer, 1000)
-    setInterval(checkGameOver, 100)
-    
+    checkGameOverId = setInterval(checkGameOver, 100)
 }
 
-const startBonusLvl = () => {
-    bonusPage.classList.add('hide')
+// initialize the bonus level
+const initBonusLvl = () => {
     userInput.remove()
     textSection.classList.remove('hide')
     currentIndex = 0
     timerText.innerText = time
+    // there is only one difficulty for the bonus level
     difficulty = "normal"
+    // get a new random set of prompts
     shufflePrompts(prompts)
     displayPrompts()
-    imagesContainer.addEventListener('click', compareClickedImg)
+    imagesGrid.addEventListener('click', compareClickedImg)
     timerId = setInterval(runTimer, 1000)
-    setInterval(checkGameOver, 100)
-    
 }
+
+// for replayability, reset game to initial state
+const resetGame = () => {
+    isGameOver = false
+    difficulty = null
+    score = 0
+    scoreText.forEach(text => { text.innerText = score })
+    currentIndex = 0
+    time = 6
+    winPage.classList.add('hide')
+    gameOverPage.classList.add('hide')
+    playAgainBtn.classList.add('hide')
+    textSection.classList.add('hide')
+    bonusPage.classList.add('hide')
+    imagesContainer.classList.add('hide')
+    gameContainer.classList.remove('hide')
+    landingPage.classList.remove('hide')
+}
+
 
 // event listeners for all buttons
 playGameBtn.addEventListener('click', () => {
@@ -207,7 +237,11 @@ hardBtn.addEventListener('click', () => {
 })
 
 bonusStartBtn.addEventListener('click', () => {
+    bonusPage.classList.add('hide')
     time = 20
-    startBonusLvl()
+    initBonusLvl()
 })
 
+playAgainBtn.addEventListener('click', () => {
+    resetGame()
+} )
