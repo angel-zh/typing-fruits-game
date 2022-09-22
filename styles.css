@@ -1,31 +1,56 @@
+h1 {
+    font-family: 'Slackey', cursive;
+    font-size: 80px;
+}
+
+h2 {
+    font-family: 'Cute Font', cursive;
+    font-size: 45px;
+}
+
+h3 {
+    font-family: 'Cute Font', cursive;
+    font-size: 30px;
+}
+
+p {
+    font-family: 'Play', sans-serif;
+}
 #game-container {
     border: 2px solid black;
     border-radius: 10px;
     width: 1000px;
     height: 800px;
     margin: 200px auto;
-    
+
 }
+
 #intro-section {
     text-align: center;
 }
 
-h1 {
-    font-size: 80px;
-    
+#prompt-text {
+    font-family: 'Play', sans-serif;
+    font-size: 40px;
 }
+
 #images-container {
+    border: 1px solid black;
+}
+
+#images-grid {
     display: grid;
     grid-template-columns: 150px 150px 150px;
     grid-template-rows: 150px 150px 150px 150px;
     gap: 1px;
     width: 450px;
+    border: 1px solid pink;
 }
 
 #images-container img {
     width: 150px;
     height: 150px;
-    border: 1px solid lightblue;
+    /* border: 1px solid lightblue; */
 }
 
 .hide {
