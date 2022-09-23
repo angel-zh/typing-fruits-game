@@ -25,7 +25,7 @@ const winPage = document.getElementById('win-page')
 const timerText = document.getElementById('timer-text')
 const promptText = document.getElementById('prompt-text')
 const userInput = document.getElementById('user-input')
-const scoreText = document.querySelectorAll('.scoreText')
+const scoreText = document.querySelectorAll('.score-text')
 
 // array of objects storing each fruit's normal prompt, hard prompt, and image url
 const prompts = [
@@ -167,10 +167,13 @@ const initGame = () => {
     shufflePrompts(prompts)
     displayPrompts()
     // compare text input at every input event
-    userInput.addEventListener('input', compareTextInput)
+    userInput.addEventListener('input', () => {
+        compareTextInput()
+        userInput.placeholder = ''
+    })
     // invoke runTimer first to avoid 1 sec delay on setInterval
-    runTimer() 
-    timerId = setInterval(runTimer, 1000)
+    // runTimer() 
+    // timerId = setInterval(runTimer, 1000)
     checkGameOverId = setInterval(checkGameOver, 100)
 }
 
@@ -198,6 +201,7 @@ const resetGame = () => {
     score = 0
     scoreText.forEach(text => { text.innerText = score })
     imagesGrid.innerHTML = ''
+    userInput.placeholder = 'Start typing here...'
     imagesGrid.removeEventListener('click', compareClickedImg)
     winPage.classList.add('hide')
     gameOverPage.classList.add('hide')
@@ -237,12 +241,14 @@ normalBtn.addEventListener('click', () => {
 hardBtn.addEventListener('click', () => {
     difficulty = "hard"
     time = 11
+    userInput.style.textAlign = "left"
     initGame()
 })
 
 bonusStartBtn.addEventListener('click', () => {
     bonusPage.classList.add('hide')
     time = 20
+    userInput.style.textAlign = "center"
     initBonusLvl()
 })
 
