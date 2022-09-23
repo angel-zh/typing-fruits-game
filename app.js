@@ -51,6 +51,7 @@ let time
 // for setInterval() & clearInterval()
 let timerId 
 let checkGameOverId 
+let isFired = false
 
 
 // in order to randomize the prompts in an array, can use 'Fisher-Yates Shuffle' algorithm
@@ -156,8 +157,8 @@ const compareClickedImg = event => {
     }
 }
 
-// initialize the game by invoking game functions
-const initGame = () => {
+
+const loadGame = () => {
     difficultyPage.classList.add('hide')
     landingPage.classList.add('hide')
     textSection.classList.remove('hide')
@@ -166,14 +167,23 @@ const initGame = () => {
     scoreText.forEach(text => { text.innerText = score })
     shufflePrompts(prompts)
     displayPrompts()
+    // start game/timer when user first starts typing
+    userInput.addEventListener('input', initGame)
+    console.log("This is loadGame")
+}
+
+// initialize the game by invoking game functions
+const initGame = () => {
+    // remove event listener for starting game/timer
+    userInput.removeEventListener('input', initGame)
     // compare text input at every input event
     userInput.addEventListener('input', () => {
         compareTextInput()
         userInput.placeholder = ''
     })
     // invoke runTimer first to avoid 1 sec delay on setInterval
-    // runTimer() 
-    // timerId = setInterval(runTimer, 1000)
+    runTimer() 
+    timerId = setInterval(runTimer, 1000)
     checkGameOverId = setInterval(checkGameOver, 100)
 }
 
@@ -235,14 +245,15 @@ xBtn.addEventListener('click', () => {
 normalBtn.addEventListener('click', () => {
     difficulty = "normal"
     time = 6
-    initGame()
+    // initGame()
+    loadGame()
 })
 
 hardBtn.addEventListener('click', () => {
     difficulty = "hard"
     time = 11
     userInput.style.textAlign = "left"
-    initGame()
+    // initGame()
 })
 
 bonusStartBtn.addEventListener('click', () => {
