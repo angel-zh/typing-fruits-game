@@ -23,15 +23,16 @@
                     <h1>Typing Fruits</h1>
                     <button id="play-game-btn">Play Game</button><br>
                     <button id="instructions-btn">Instructions</button>
-                    <!-- <div id="animate-fruits">
-                        <span style="--i:1"></span>
+                    <div id="animate-fruits">
+    
                         <span style="--i:1"><img src="game-images/apple.png" alt="apple"></span>
-                        <span style='--i:1'><img src="game-images/orange.png" alt="orange"></span>
-                        <span style='--i:1'><img src="game-images/mango.png" alt="mango"></span>
-                        <span style='--i:1'><img src="game-images/mango.png" alt="mango"></span>
-                        <span style='--i:1'><img src="game-images/orange.png" alt="orange"></span>
-                        <span style='--i:1'><img src="game-images/apple.png" alt="apple"></span>
-                    </div> -->
+                        <span style="--i:2"><img src="game-images/orange.png" alt="orange"></span>
+                        <span style="--i:3"><img src="game-images/mango.png" alt="mango"></span>
+                        <span style="--i:4"><img src="game-images/strawberries.png" alt="strawberries"></span>
+                        <span style="--i:5"><img src="game-images/mango.png" alt="mango"></span>
+                        <span style="--i:6"><img src="game-images/orange.png" alt="orange"></span>
+                        <span style="--i:7"><img src="game-images/apple.png" alt="apple"></span>
+                    </div>
                 </div>
                 <div id="instructions-div" class="hide">
                     <h3>Instructions</h3>
@@ -39,7 +40,7 @@
                     <p>Type what you see as quickly as you can before the time runs
                         out.
                     </p>
-                    <p>For each correct match, you will be awarded with a fruit to populate your farm!</p>
+                    <p>For each correct match, you will be awarded with a fruit to add to your collection!</p>
                     <button id="okay-btn">Okay</button>
                 </div>
                 <div id="difficulty-div" class="hide">
@@ -49,19 +50,20 @@
                     <button id="hard-btn">Hard</button>
                 </div>
             </section>
+            
             <section id="text-section" class="hide">
                 <div id="timer-div">
-                    <p><span id="timer-text"> </span> seconds left</p>
+                    <p><span id="timer-text"> 0</span></p>
+                    <p>seconds left</p>
                 </div>
                 <div id="prompt-text">
-
                 </div>
-                <input id="user-input" type="text" autocomplete="off" placeholder="Count down begins when you type...">
-                <p>Score: <span class="scoreText"> </span></p>
+                <input id="user-input" type="text" autocomplete="off" placeholder="Start typing here...">
+                <p>Score: <span class="score-text"> </span></p>
             </section>
             <section id="bonus-page" class="hide">
-                <h1>BONUS LEVEL</h1>
-                <h2>It's harvest time!</h2>
+                <h2>BONUS LEVEL</h2>
+                <h3>It's harvest time!</h3>
                 <img src="game-images/PapayaPuppy.png">
                 <p>Collect your fruits by clicking on the image that matches the word before time runs out!</p>
                 <button id="bonus-start-btn">Start</button>
@@ -71,22 +73,23 @@
                 </div>
             </section>
         </section>
+
         <section id="game-over-page" class="hide">
             <h2>GAME OVER</h2>
             <img src="game-images/BananaBunny.png" alt="Bunny eating a banana">
             <p>Oh no! The hungry bunny stole all your fruits...</p>
-            <p>Your final score is <span class="scoreText"> </span> points.</p>
+            <p>Your final score is <span class="score-text"> </span> points.</p>
 
         </section>
         <section id="win-page" class="hide">
             <h2>Congratulations!</h2>
             <img src="game-images/Basket.png" alt="Puppy collecting a papaya">
             <p>The harvest was a success!</p>
-            <p>Your final score is <span class="scoreText"> </span> points.</p>
+            <p>Your final score is <span class="score-text"> </span> points.</p>
         </section>
         <button id="play-again-btn" class="hide">Play Again</button>
     </div>
-    <footer>Made and drawn by Angel Zhou</footer>
+    <footer>&copy Made and drawn by Angel Zhou</footer>
 </body>
 
 </html>
