@@ -49,10 +49,20 @@ let currentIndex = 0
 let score = 0
 let time
 // for setInterval() & clearInterval()
-let timerId 
-let checkGameOverId 
+let timerId
+let checkGameOverId
 let isFired = false
 
+
+// sets the timer conditions and displays on the UI
+const runTimer = () => {
+    if (time === 0) {
+        isGameOver = true
+    } else {
+        time--
+    }
+    timerText.innerText = time
+}
 
 // in order to randomize the prompts in an array, can use 'Fisher-Yates Shuffle' algorithm
 // selects element of random index to switch with current element
@@ -80,11 +90,11 @@ const displayPrompts = () => {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
         clearInterval(timerId)
-    } 
+    }
 }
 
 // creates an image corresponding to the current prompt
-// attaches image to a 3x4 grid
+// attaches image to image grid
 const createImage = () => {
     const img = document.createElement('img')
     img.src = prompts[currentIndex].url
@@ -92,6 +102,7 @@ const createImage = () => {
     imagesGrid.appendChild(img)
 }
 
+// checks game status 
 // displays game over or winning screen
 const checkGameOver = () => {
     if (isGameOver) {
@@ -101,7 +112,7 @@ const checkGameOver = () => {
         gameContainer.classList.add('hide')
         gameOverPage.classList.remove('hide')
         playAgainBtn.classList.remove('hide')
-    // win is determined when max score is reached    
+        // win is determined when max score is reached    
     } else if (score === 240) {
         clearInterval(checkGameOverId)
         clearInterval(timerId)
@@ -111,18 +122,8 @@ const checkGameOver = () => {
     }
 }
 
-// sets the timer conditions and displays on the UI
-const runTimer = () => {
-    if (time === 0) {
-        isGameOver = true
-    } else {
-        time--
-    }
-    timerText.innerText = time
-}
-
 // compare user text input with prompt
-//if match, attach img, then move to next prompt
+// if match, attach img, then move to next prompt
 const compareTextInput = () => {
     if (userInput.value === promptText.innerText) {
         createImage()
@@ -157,19 +158,19 @@ const compareClickedImg = event => {
     }
 }
 
-
+// load all components on game page
 const loadGame = () => {
     difficultyPage.classList.add('hide')
     landingPage.classList.add('hide')
     textSection.classList.remove('hide')
     imagesContainer.classList.remove('hide')
+    timerText.innerText = time
     // updates all scoreText spans in DOM
     scoreText.forEach(text => { text.innerText = score })
     shufflePrompts(prompts)
     displayPrompts()
     // start game/timer when user first starts typing
     userInput.addEventListener('input', initGame)
-    console.log("This is loadGame")
 }
 
 // initialize the game by invoking game functions
@@ -182,8 +183,9 @@ const initGame = () => {
         userInput.placeholder = ''
     })
     // invoke runTimer first to avoid 1 sec delay on setInterval
-    runTimer() 
+    runTimer()
     timerId = setInterval(runTimer, 1000)
+    // consistenly check for the status of game
     checkGameOverId = setInterval(checkGameOver, 100)
 }
 
@@ -207,7 +209,7 @@ const resetGame = () => {
     isGameOver = false
     difficulty = null
     currentIndex = 0
-    time = 6
+    time = 5
     score = 0
     scoreText.forEach(text => { text.innerText = score })
     imagesGrid.innerHTML = ''
@@ -244,16 +246,15 @@ xBtn.addEventListener('click', () => {
 
 normalBtn.addEventListener('click', () => {
     difficulty = "normal"
-    time = 6
-    // initGame()
+    time = 5
     loadGame()
 })
 
 hardBtn.addEventListener('click', () => {
     difficulty = "hard"
-    time = 11
+    time = 10
     userInput.style.textAlign = "left"
-    // initGame()
+    loadGame()
 })
 
 bonusStartBtn.addEventListener('click', () => {
@@ -265,4 +266,4 @@ bonusStartBtn.addEventListener('click', () => {
 
 playAgainBtn.addEventListener('click', () => {
     resetGame()
-} )
+})
