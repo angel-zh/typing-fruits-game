@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(to bottom, rgb(255, 176, 176), rgb(255, 207, 167)) ;
+    background-image: linear-gradient(to bottom, rgb(255, 176, 176), rgb(255, 207, 167));
     text-align: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -12,6 +12,7 @@ body {
     width: 1000px;
     height: 800px;
     margin: 200px auto;
+    margin-bottom: 0;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3), 0px 6px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -28,6 +29,7 @@ h2 {
     font-family: 'Cute Font', cursive;
     font-size: 5em;
     margin: 20px;
+    text-shadow: 2px 2px 3px rgb(255, 255, 255);
 }
 
 h3 {
@@ -52,7 +54,7 @@ button {
     margin: 10px;
 }
 
-button:hover {  
+button:hover {
     box-shadow: 0 8px 5px -5px rgb(43, 40, 40);
     transform: translateY(-3px);
     background-color: rgb(255, 211, 211);
@@ -131,7 +133,7 @@ img {
 #x-btn:hover {
     box-shadow: none;
     transform: none;
-    background-color:rgb(255, 176, 176);
+    background-color: rgb(255, 176, 176);
 }
 
 #text-section {
@@ -146,9 +148,17 @@ img {
     margin: 50px;
 }
 
+#timer-wrapper {
+    border: 1px solid rgb(255, 152, 93);
+    width: 52px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background-color: rgb(255, 152, 93);
+}
+
 #timer-text {
-    color:rgb(255, 138, 70);
-    font-size: 1.5em;
+    color: white;
+    font-size: 1.6em;
 }
 
 #prompt-text {
@@ -176,7 +186,7 @@ input:focus {
 }
 
 .score-text {
-    font-size: 1.3em;
+    font-size: 1.8em;
     color: rgb(254, 164, 164);
 }
 
@@ -187,7 +197,6 @@ input:focus {
     margin: 100px 17px;
     padding: 6px;
     background-color: rgb(255, 174, 174);
-    /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3), 0px 5px 5px rgba(0, 0, 0, 0.3); */
 }
 
 #images-grid {
@@ -195,7 +204,7 @@ input:focus {
     grid-template-columns: 140px 140px 140px;
     grid-template-rows: 140px 140px 140px 140px;
     width: 420px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, .6);
     border-radius: 9px;
 }
 
@@ -211,18 +220,43 @@ input:focus {
     margin: 80px 0 0 20px;
 }
 
-#bonus-page h2, h3 {
-    margin: 0;
-}
 #bonus-page h2 {
-    color:rgb(255, 138, 70);
+    margin: 0;
+    color: rgb(255, 138, 70);
     animation: blink 1.5s linear infinite;
+}
+
+#bonus-page h3 {
+    margin: 0;
+    color:rgb(61, 59, 59)
 }
 
 #bonus-page img {
     width: 250px;
     height: auto;
     margin: 20px;
+}
+
+#game-over-page {
+    margin-top: 70px;
+}
+
+#game-over-page img, #win-page img {
+    width: 240px;
+    height: auto;
+}
+
+#win-page {
+    margin-top: 80px;
+}
+
+#play-again-btn {
+    margin-top: 40px;
+}
+
+footer {
+    font-family: 'Play', sans-serif;
+    margin-top: 30px;
 }
 
 .hide {
@@ -240,22 +274,28 @@ input:focus {
 }
 
 @keyframes animateFruits {
-    0%,40%,100% {
-      transform: translateY(0)
-    }
-    20% {
-      transform: translateY(-15px)
-    }
-  }
 
-  @keyframes blink {
-    0%{
+    0%,
+    40%,
+    100% {
+        transform: translateY(0)
+    }
+
+    20% {
+        transform: translateY(-15px)
+    }
+}
+
+@keyframes blink {
+    0% {
         opacity: 0;
-      }
-      50%{
-        opacity: 0.7;
-      }
-      100%{
-        opacity: 0;
-      }
-  }
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
