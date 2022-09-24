@@ -83,9 +83,10 @@ const displayPrompts = () => {
     if (currentIndex < prompts.length) {
         if (difficulty === "normal") {
             promptText.innerText = prompts[currentIndex].normal
-        } else if (difficulty === "hard")
+        } else {
             promptText.innerText = prompts[currentIndex].hard
-        // once we reach the length of the array and score = 120, the bonus level appears
+        }
+    // once we reach the length of the array and score = 120, the bonus level appears
     } else if (currentIndex >= 12 && score === 120) {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
@@ -94,7 +95,7 @@ const displayPrompts = () => {
 }
 
 // creates an image corresponding to the current prompt
-// attaches image to image grid
+// attaches image to images grid
 const createImage = () => {
     const img = document.createElement('img')
     img.src = prompts[currentIndex].url
@@ -106,13 +107,13 @@ const createImage = () => {
 // displays game over or winning screen
 const checkGameOver = () => {
     if (isGameOver) {
-        // clearInterval for checkGameOver once game is over
+        // clear intervals once game is over
         clearInterval(checkGameOverId)
         clearInterval(timerId)
         gameContainer.classList.add('hide')
         gameOverPage.classList.remove('hide')
         playAgainBtn.classList.remove('hide')
-        // win is determined when max score is reached    
+    // win is determined when max score is reached    
     } else if (score === 240) {
         clearInterval(checkGameOverId)
         clearInterval(timerId)
@@ -123,7 +124,7 @@ const checkGameOver = () => {
 }
 
 // compare user text input with prompt
-// if match, attach img, then move to next prompt
+// if match, create image, then move to next prompt
 const compareTextInput = () => {
     if (userInput.value === promptText.innerText) {
         createImage()
@@ -146,8 +147,9 @@ const compareTextInput = () => {
 // if match, proceed to next prompt
 // if not, game over
 const compareClickedImg = event => {
+    // prevent triggering game over when user clicks and drags images grid
+    if (event.target === event.currentTarget) return
     const clickedImg = event.target.getAttribute('id')
-    // console.log(clickedImg)
     if (clickedImg === prompts[currentIndex].normal) {
         document.getElementById(clickedImg).style.visibility = 'hidden'
         score += 10
@@ -186,7 +188,7 @@ const initGame = () => {
     // invoke runTimer first to avoid 1 sec delay on setInterval
     runTimer()
     timerId = setInterval(runTimer, 1000)
-    // consistenly check for the status of game
+    // consistently check for the status of game
     checkGameOverId = setInterval(checkGameOver, 100)
 }
 
@@ -198,19 +200,11 @@ const initBonusLvl = () => {
     timerText.innerText = time
     // there is only one difficulty for the bonus level
     difficulty = "normal"
-    // get a new random set of prompts - normal only
+    // get a new random set of prompts - normal
     shufflePrompts(prompts)
     displayPrompts()
-    imagesGrid.addEventListener('click', (event) => {
-        // this prevents triggering game over from accidental 
-        // clicking + dragging of the grid itself
-        if (event.target === event.currentTarget) {
-            return
-        } else {
-            compareClickedImg()
-        }
-    })
-    // timerId = setInterval(runTimer, 1000)
+    imagesGrid.addEventListener('click', compareClickedImg)
+    timerId = setInterval(runTimer, 1000)
 }
 
 // for replayability, reset game to initial state
