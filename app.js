@@ -85,7 +85,7 @@ const displayPrompts = () => {
             promptText.innerText = prompts[currentIndex].normal
         } else if (difficulty === "hard")
             promptText.innerText = prompts[currentIndex].hard
-    // once we reach the length of the array and score = 120, the bonus level appears
+        // once we reach the length of the array and score = 120, the bonus level appears
     } else if (currentIndex >= 12 && score === 120) {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
@@ -147,6 +147,7 @@ const compareTextInput = () => {
 // if not, game over
 const compareClickedImg = event => {
     const clickedImg = event.target.getAttribute('id')
+    // console.log(clickedImg)
     if (clickedImg === prompts[currentIndex].normal) {
         document.getElementById(clickedImg).style.visibility = 'hidden'
         score += 10
@@ -200,8 +201,16 @@ const initBonusLvl = () => {
     // get a new random set of prompts - normal only
     shufflePrompts(prompts)
     displayPrompts()
-    imagesGrid.addEventListener('click', compareClickedImg)
-    timerId = setInterval(runTimer, 1000)
+    imagesGrid.addEventListener('click', (event) => {
+        // this prevents triggering game over from accidental 
+        // clicking + dragging of the grid itself
+        if (event.target === event.currentTarget) {
+            return
+        } else {
+            compareClickedImg()
+        }
+    })
+    // timerId = setInterval(runTimer, 1000)
 }
 
 // for replayability, reset game to initial state
@@ -267,3 +276,4 @@ bonusStartBtn.addEventListener('click', () => {
 playAgainBtn.addEventListener('click', () => {
     resetGame()
 })
+
