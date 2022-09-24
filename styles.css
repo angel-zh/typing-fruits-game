@@ -3,6 +3,7 @@ body {
     text-align: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    user-select: none;
 }
 
 #full-game-div {
@@ -90,7 +91,7 @@ button {
 button:hover {
     box-shadow: 0 8px 5px -5px rgb(43, 40, 40);
     transform: translateY(-3px);
-    transition: 0.3s;
+    transition: 0.1s;
     background-image: linear-gradient(to right, rgba(255,101,107,0.6), rgba(255,163,97,0.6), rgba(245,218,110,0.6));
 }
 
