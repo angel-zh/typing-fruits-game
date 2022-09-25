@@ -52,6 +52,7 @@ let time
 let timerId
 let checkGameOverId
 let isFired = false
+let userPrompt
 
 
 // sets the timer conditions and displays on the UI
@@ -82,17 +83,32 @@ const shufflePrompts = array => {
 const displayPrompts = () => {
     if (currentIndex < prompts.length) {
         if (difficulty === "normal") {
-            promptText.innerText = prompts[currentIndex].normal
+            userPrompt = prompts[currentIndex].normal
+            // promptText.innerHTML = 
         } else {
-            promptText.innerText = prompts[currentIndex].hard
+            userPrompt = prompts[currentIndex].hard
+            // promptText.innerHTML = 
         }
+        highlightLetters()
     // once we reach the length of the array and score = 120, the bonus level appears
     } else if (currentIndex >= 12 && score === 120) {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
         clearInterval(timerId)
     }
+    
 }
+
+// highlights the correct letters as the user types
+const highlightLetters = () => {
+    promptText.innerHTML = ''
+    userPrompt.split('').forEach(letter => {
+        const letterSpan = document.createElement('span')
+        letterSpan.innerText = letter
+        promptText.appendChild(letterSpan)
+    })
+}
+
 
 // creates an image corresponding to the current prompt
 // attaches image to images grid
@@ -101,26 +117,6 @@ const createImage = () => {
     img.src = prompts[currentIndex].url
     img.id = prompts[currentIndex].normal
     imagesGrid.appendChild(img)
-}
-
-// checks game status 
-// displays game over or winning screen
-const checkGameOver = () => {
-    if (isGameOver) {
-        // clear intervals once game is over
-        clearInterval(checkGameOverId)
-        clearInterval(timerId)
-        gameContainer.classList.add('hide')
-        gameOverPage.classList.remove('hide')
-        playAgainBtn.classList.remove('hide')
-    // win is determined when max score is reached    
-    } else if (score === 240) {
-        clearInterval(checkGameOverId)
-        clearInterval(timerId)
-        gameContainer.classList.add('hide')
-        winPage.classList.remove('hide')
-        playAgainBtn.classList.remove('hide')
-    }
 }
 
 // compare user text input with prompt
@@ -161,6 +157,26 @@ const compareClickedImg = event => {
     }
 }
 
+// checks game status 
+// displays game over or winning screen
+const checkGameOver = () => {
+    if (isGameOver) {
+        // clear intervals once game is over
+        clearInterval(checkGameOverId)
+        clearInterval(timerId)
+        gameContainer.classList.add('hide')
+        gameOverPage.classList.remove('hide')
+        playAgainBtn.classList.remove('hide')
+    // win is determined when max score is reached    
+    } else if (score === 240) {
+        clearInterval(checkGameOverId)
+        clearInterval(timerId)
+        gameContainer.classList.add('hide')
+        winPage.classList.remove('hide')
+        playAgainBtn.classList.remove('hide')
+    }
+}
+
 // load all components on game page
 const loadGame = () => {
     difficultyPage.classList.add('hide')
@@ -182,12 +198,21 @@ const initGame = () => {
     userInput.removeEventListener('input', initGame)
     // compare text input at every input event
     userInput.addEventListener('input', () => {
-        compareTextInput()
+        const arraySpans = promptText.querySelectorAll('span')
+        const arrayInputValues = userInput.value.split('')
+        arraySpans.forEach((letterSpan, index) => {
+            const letter = arrayInputValues[index]
+            if (letter === letterSpan.innerText) {
+                letterSpan.classList.add('highlight')
+            }
+        })
+        compareTextInput() 
         userInput.placeholder = ''
     })
+
     // invoke runTimer first to avoid 1 sec delay on setInterval
     runTimer()
-    timerId = setInterval(runTimer, 1000)
+    // timerId = setInterval(runTimer, 1000)
     // consistently check for the status of game
     checkGameOverId = setInterval(checkGameOver, 100)
 }
