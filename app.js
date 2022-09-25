@@ -52,7 +52,7 @@ let time
 let timerId
 let checkGameOverId
 let isFired = false
-let userPrompt
+let userPrompt = []
 
 
 // sets the timer conditions and displays on the UI
@@ -87,26 +87,44 @@ const displayPrompts = () => {
         } else {
             userPrompt = prompts[currentIndex].hard
         }
-        highlightLetters()
-    // once we reach the length of the array and score = 120, the bonus level appears
+        createLetterSpan()
+        // once we reach the length of the array and score = 120, the bonus level appears
     } else if (currentIndex >= 12 && score === 120) {
         textSection.classList.add('hide')
         bonusPage.classList.remove('hide')
         clearInterval(timerId)
     }
-    
 }
 
-// highlights the correct letters as the user types
-const highlightLetters = () => {
+// function to hold each letter of prompts in a span
+// used for making the highlighting function work on each letter
+const createLetterSpan = () => {
     promptText.innerHTML = ''
+    // splits prompt into single letter strings in an array
+    // create span to hold each letter using a loop
     userPrompt.split('').forEach(letter => {
         const letterSpan = document.createElement('span')
         letterSpan.innerText = letter
+        // append to div that shows prompt to the user
         promptText.appendChild(letterSpan)
     })
 }
 
+// highlights the correct letters as the user types
+const highlightLetters = () => {
+    // select all spans with single letters in promptText div
+    const arrayLetterSpans = promptText.querySelectorAll('span')
+    // split user input into single letter strings in an array
+    const arrayInputValues = userInput.value.split('')
+    // compare each single letter typed with corresponding single letter in prompt
+    arrayLetterSpans.forEach((letterSpan, index) => {
+        const letter = arrayInputValues[index]
+        // if there is a match, add highlight class
+        if (letter === letterSpan.innerText) {
+            letterSpan.classList.add('highlight')
+        }
+    })
+}
 
 // creates an image corresponding to the current prompt
 // attaches image to images grid
@@ -165,7 +183,7 @@ const checkGameOver = () => {
         gameContainer.classList.add('hide')
         gameOverPage.classList.remove('hide')
         playAgainBtn.classList.remove('hide')
-    // win is determined when max score is reached    
+        // win is determined when max score is reached    
     } else if (score === 240) {
         clearInterval(checkGameOverId)
         clearInterval(timerId)
@@ -188,17 +206,8 @@ const loadGame = () => {
     displayPrompts()
     // start game/timer when user first starts typing
     userInput.addEventListener('input', initGame)
-    userInput.addEventListener('input', () => {
-        const arraySpans = promptText.querySelectorAll('span')
-        console.log(arraySpans)
-        const arrayInputValues = userInput.value.split('')
-        arraySpans.forEach((letterSpan, index) => {
-            const letter = arrayInputValues[index]
-            if (letter === letterSpan.innerText) {
-                letterSpan.classList.add('highlight')
-            }
-        })
-    })
+    // event listener for highlighting letters as user types in input
+    userInput.addEventListener('input', highlightLetters)
 }
 
 // initialize the game by invoking game functions
@@ -207,19 +216,9 @@ const initGame = () => {
     userInput.removeEventListener('input', initGame)
     // compare text input at every input event
     userInput.addEventListener('input', () => {
-        // const arraySpans = promptText.querySelectorAll('span')
-        // console.log(arraySpans)
-        // const arrayInputValues = userInput.value.split('')
-        // arraySpans.forEach((letterSpan, index) => {
-        //     const letter = arrayInputValues[index]
-        //     if (letter === letterSpan.innerText) {
-        //         letterSpan.classList.add('highlight')
-        //     }
-        // })
-        compareTextInput() 
+        compareTextInput()
         userInput.placeholder = ''
     })
-
     // invoke runTimer first to avoid 1 sec delay on setInterval
     runTimer()
     timerId = setInterval(runTimer, 1000)
