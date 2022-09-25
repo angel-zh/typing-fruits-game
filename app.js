@@ -51,7 +51,6 @@ let time
 // for setInterval() & clearInterval()
 let timerId
 let checkGameOverId
-let isFired = false
 let userPrompt = []
 
 
@@ -206,7 +205,7 @@ const loadGame = () => {
     displayPrompts()
     // start game/timer when user first starts typing
     userInput.addEventListener('input', initGame)
-    // event listener for highlighting letters as user types in input
+    // event listener for highlighting letters as user begins typing
     userInput.addEventListener('input', highlightLetters)
 }
 
@@ -248,6 +247,8 @@ const resetGame = () => {
     currentIndex = 0
     time = 5
     score = 0
+    userPrompt = []
+    userInput.value = ""
     scoreText.forEach(text => { text.innerText = score })
     imagesGrid.innerHTML = ''
     userInput.placeholder = 'Start typing here...'
