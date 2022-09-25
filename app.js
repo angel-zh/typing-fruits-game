@@ -84,10 +84,8 @@ const displayPrompts = () => {
     if (currentIndex < prompts.length) {
         if (difficulty === "normal") {
             userPrompt = prompts[currentIndex].normal
-            // promptText.innerHTML = 
         } else {
             userPrompt = prompts[currentIndex].hard
-            // promptText.innerHTML = 
         }
         highlightLetters()
     // once we reach the length of the array and score = 120, the bonus level appears
@@ -190,6 +188,17 @@ const loadGame = () => {
     displayPrompts()
     // start game/timer when user first starts typing
     userInput.addEventListener('input', initGame)
+    userInput.addEventListener('input', () => {
+        const arraySpans = promptText.querySelectorAll('span')
+        console.log(arraySpans)
+        const arrayInputValues = userInput.value.split('')
+        arraySpans.forEach((letterSpan, index) => {
+            const letter = arrayInputValues[index]
+            if (letter === letterSpan.innerText) {
+                letterSpan.classList.add('highlight')
+            }
+        })
+    })
 }
 
 // initialize the game by invoking game functions
@@ -198,21 +207,22 @@ const initGame = () => {
     userInput.removeEventListener('input', initGame)
     // compare text input at every input event
     userInput.addEventListener('input', () => {
-        const arraySpans = promptText.querySelectorAll('span')
-        const arrayInputValues = userInput.value.split('')
-        arraySpans.forEach((letterSpan, index) => {
-            const letter = arrayInputValues[index]
-            if (letter === letterSpan.innerText) {
-                letterSpan.classList.add('highlight')
-            }
-        })
+        // const arraySpans = promptText.querySelectorAll('span')
+        // console.log(arraySpans)
+        // const arrayInputValues = userInput.value.split('')
+        // arraySpans.forEach((letterSpan, index) => {
+        //     const letter = arrayInputValues[index]
+        //     if (letter === letterSpan.innerText) {
+        //         letterSpan.classList.add('highlight')
+        //     }
+        // })
         compareTextInput() 
         userInput.placeholder = ''
     })
 
     // invoke runTimer first to avoid 1 sec delay on setInterval
     runTimer()
-    // timerId = setInterval(runTimer, 1000)
+    timerId = setInterval(runTimer, 1000)
     // consistently check for the status of game
     checkGameOverId = setInterval(checkGameOver, 100)
 }
