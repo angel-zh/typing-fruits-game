@@ -43,6 +43,7 @@ const prompts = [
     { normal: "watermelon", hard: "Please hand me a slice of watermelon.", url: "game-images/watermelon.png" },
 ]
 
+let userPrompt = []
 let difficulty = null
 let isGameOver = false
 let currentIndex = 0
@@ -51,7 +52,6 @@ let time
 // for setInterval() & clearInterval()
 let timerId
 let checkGameOverId
-let userPrompt = []
 
 
 // sets the timer conditions and displays on the UI

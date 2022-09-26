@@ -28,17 +28,17 @@ h1 {
 }
 
 h1::before {
-        position: absolute;
-        content: "";
-        left: 50%;
-        top: 85px;
-        width: 800px;
-        height: 25px;
-        transform: skew(-20deg) translateX(-50%);
-        background-image: linear-gradient(to right, rgba(255,101,107,0.6), rgba(255,163,97,0.6), rgba(245,218,110,0.6));
-        z-index: -1;
-        border-radius: 3px;
-      }
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 85px;
+    width: 800px;
+    height: 25px;
+    transform: skew(-20deg) translateX(-50%);
+    background-image: linear-gradient(to right, rgba(255, 101, 107, 0.6), rgba(255, 163, 97, 0.6), rgba(245, 218, 110, 0.6));
+    z-index: -1;
+    border-radius: 3px;
+}
 
 
 h2 {
@@ -54,7 +54,7 @@ h3 {
     margin: 10px;
 }
 
-#intro-section h3::before  {
+#intro-section h3::before {
     position: absolute;
     content: "";
     left: 50%;
@@ -62,7 +62,7 @@ h3 {
     width: 300px;
     height: 26px;
     transform: skew(-20deg) translateX(-50%);
-    background-image: linear-gradient(to right, rgba(255,101,107,0.6), rgba(255,163,97,0.6), rgba(245,218,110,0.6));
+    background-image: linear-gradient(to right, rgba(255, 101, 107, 0.6), rgba(255, 163, 97, 0.6), rgba(245, 218, 110, 0.6));
     z-index: -1;
     border-radius: 3px;
 }
@@ -91,7 +91,7 @@ button:hover {
     box-shadow: 0 8px 5px -5px rgb(43, 40, 40);
     transform: translateY(-3px);
     transition: 0.1s;
-    background-image: linear-gradient(to right, rgba(255,101,107,0.6), rgba(255,163,97,0.6), rgba(245,218,110,0.6));
+    background-image: linear-gradient(to right, rgba(255, 101, 107, 0.6), rgba(255, 163, 97, 0.6), rgba(245, 218, 110, 0.6));
 }
 
 button:active {
@@ -264,7 +264,7 @@ input:focus {
 
 #bonus-page h3 {
     margin: 0;
-    color:rgb(61, 59, 59)
+    color: rgb(61, 59, 59)
 }
 
 #bonus-page img {
@@ -278,7 +278,8 @@ input:focus {
     animation: fadeIn 1.2s;
 }
 
-#game-over-page img, #win-page img {
+#game-over-page img,
+#win-page img {
     width: 240px;
     height: auto;
 }
@@ -317,6 +318,7 @@ footer {
 }
 
 @keyframes animateFruits {
+
     0%,
     40%,
     100% {
@@ -341,5 +343,3 @@ footer {
         opacity: 0.1;
     }
 }
-
- 
