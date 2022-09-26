@@ -220,7 +220,7 @@ const initGame = () => {
     })
     // invoke runTimer first to avoid 1 sec delay on setInterval
     runTimer()
-    // timerId = setInterval(runTimer, 1000)
+    timerId = setInterval(runTimer, 1000)
     // consistently check for the status of game
     checkGameOverId = setInterval(checkGameOver, 100)
 }
