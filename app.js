@@ -75,7 +75,7 @@ const shufflePrompts = array => {
         array[i] = array[j]
         array[j] = temp
     }
-    return prompts
+    return array
 }
 
 // displays prompts based on difficulty level 
@@ -182,7 +182,7 @@ const checkGameOver = () => {
         gameContainer.classList.add('hide')
         gameOverPage.classList.remove('hide')
         playAgainBtn.classList.remove('hide')
-        // win is determined when max score is reached    
+    // win is determined when max score is reached    
     } else if (score === 240) {
         clearInterval(checkGameOverId)
         clearInterval(timerId)
