@@ -75,6 +75,7 @@ const shufflePrompts = array => {
         array[i] = array[j]
         array[j] = temp
     }
+    // should return array param, currently locked into prompts which is counter intuitive
     return prompts
 }
 
