@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 
-This is an educational, kid-friendly game that aims to teach kids to identify and spell various fruits while honing their typing skills! 
+This is an educational, kid-friendly game that aims to teach kids to identify and spell various fruits while honing their typing skills! There are two difficulty levels in the game - normal and hard. The latter difficulty is for those who are up for a challenge.
 The idea was inspired by my background in education merged with my passion for drawing/digital illustration. 
 
 ### Technology
