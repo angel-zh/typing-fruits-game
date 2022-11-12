@@ -2,8 +2,11 @@
 
 ## OVERVIEW
 
-This is an educational, kid-friendly game that aims to teach kids to identify and spell various fruits while honing their typing skills! There are two difficulty levels in the game - normal and hard. The latter difficulty is for those who are up for a challenge.
-The idea was inspired by my background in education merged with my passion for drawing/digital illustration. 
+This is an educational, kid-friendly browser game that aims to teach kids to identify and spell various fruits while honing their typing skills! There are two difficulty levels in the game - normal and hard. The latter difficulty is for those who are up for a challenge.
+The idea was inspired by my background in education merged with my passion for digital illustration. 
+
+### Link
+https://angel-zh.github.io/typing-fruits-game/
 
 ### Technology
 - HTML5
@@ -38,42 +41,32 @@ As a user I want the ability to...
 - restart to play again
 ```
 
-## Wireframes/Screenshots
+## SCREENSHOTS
 
-![game1](https://share.balsamiq.com/c/5a5pXxqzkzkqitd3J6eTag.png)
-![game2](https://share.balsamiq.com/c/erDWEdv5DckfHeAJjBCRTy.png)
-![game3](https://share.balsamiq.com/c/5nUPW57UoTfPC1LdjtiuVm.png)
-![game4](https://share.balsamiq.com/c/gzZesSHA1TAeKkRmckNwbG.png)
-![game5](https://share.balsamiq.com/c/trqy7ALhj8axFHPT5AKFYv.png)
-![game6](https://share.balsamiq.com/c/6oojEn9bHx3nctVyMXhGYM.png)
-![game7](https://share.balsamiq.com/c/wiGAKKEZAv2DRTw9eDapj9.png)
-![game8](https://share.balsamiq.com/c/r4uwdqGxjAKKHirRvj1hsw.png)
-![game9](https://share.balsamiq.com/c/77UJUVyNzkhcfUhairARah.png)
-![game10](https://share.balsamiq.com/c/afneW1LJ9zu9jQ4eWW74Xj.png)
-![game11](https://share.balsamiq.com/c/p9Kn9ynqcdXduDqE5mUSBa.png)
+![title](game-images/screenshot-1.png)
+![level](game-images/screenshot-2.png)
+![gameplay](game-images/screenshot-3.png)
+![bonus](game-images/screenshot-4.png)
+![gameover](game-images/screenshot-5.png)
+
   
 
-## Entity Relationship
+## GAME MECHANICS
 
 This game incorporates the use of text inputs (strings) and mouse click events to navigate through the levels. There are two pre-determined arrays of prompts, which also serve as a check for winning conditions, for two levels of difficulty respectively. An object will be used to store all word-image key-value pairs.
 
 ### Functions
-```
+
+Some of the functions used in the game:
+
 - displayPrompts - displays prompts in randomized non-repeating order
-- compareInput - checks user input against prompt
-- countdown - sets the timer for each input
-- handleClickedImg - handles mouse clicks to determine a match (word-image)
+- highlightLetters - highlights correct letters as user types
+- compareTextInput - checks user input against prompt
+- runTimer - sets the timer for each input
+- compareClickedImg - handles image clicks to determine a match
 - resetGame - resets game to initial state
 - initGame - holds logic of game and invokes functions to run game
-```
 
-### Schedule for Project Week
-I will start off with a simple HTML boilerplate, making sure my css and JS files are linked. In addition, I will set a basic layout with element tags (i.e. headers, divs, footer, etc.) and assign some relevant Ids and classes. 
-
-Then, I'll move onto my JS pseudocoding, create my prompts needed for the game, define my variables, get my HTML elements (DOM), and get onto writing my functions for my game logic. 
-
-Lastly, I'll use CSS to style my game to make it visually appealing.
 
 ## Credits
-Wireframes were created using [Balsamiq Cloud](https://balsamiq.com/wireframes/cloud/).
-All other images in the game were digitally drawn by me.
+All images in the game were digitally drawn by me.
